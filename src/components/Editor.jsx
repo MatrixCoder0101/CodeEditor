@@ -13,7 +13,7 @@ const Editor = ({ value, onChange, editorTheme }) => {
 	const editorRefs = useRef();
 	const paletteRef = useRef();
 	const [isPaletteVisible, setIsPaletteVisible] = useState(false);
-	window.editor = editorRefs;
+	
 	const openCommandPalette = () => {
 		setIsPaletteVisible(true);
 		return true;
@@ -52,8 +52,12 @@ const Editor = ({ value, onChange, editorTheme }) => {
 		}
 	};
 
+  if (typeof window !== "undefined") {
+    window.editor = editorRefs.current;
+  }
+  
 	return (
-		<div className="flex-1 overflow-auto">
+		<div className="flex-1 overflow-auto w-full h-full mt-14">
 			<CodeMirror
 				ref={editorRefs}
 				value={value}
@@ -83,11 +87,8 @@ const Editor = ({ value, onChange, editorTheme }) => {
 						true
 					)
 				]}
-				editorDidMount={editor => {
-					editor.setSize("", "100%");
-				}}
 				onChange={value => onChange(value)}
-				style={{ height: "100%" }}
+        className="h-full"
 			/>
 			<div ref={paletteRef}>
 				<CommandPalette
