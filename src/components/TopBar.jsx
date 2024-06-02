@@ -17,7 +17,7 @@ const TopBar = () => {
   const { setTheme } = useTheme();
 
   return (
-    <header className="fixed top-0 left-0 right-0 flex h-14 shadow-lg shadow-[#2A0E61]/50 bg-[#03001417] backdrop-blur-md items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 z-20">
+    <header className="fixed top-0 left-0 right-0 flex h-14 shadow-lg shadow-[#060509]/50 bg-[#03001417] backdrop-blur-md items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 z-20">
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="shrink-0">
