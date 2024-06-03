@@ -11,13 +11,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+//import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import FileTree from "@/components/FsTree";
 
-const TopBar = () => {
+const TopBar = ({ onOpenFile }) => {
   const { setTheme } = useTheme();
-
+  
   return (
-    <header className="fixed top-0 left-0 right-0 flex h-14 shadow-lg shadow-[#060509]/50 bg-[#03001417] backdrop-blur-md items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 z-20">
+    <header className="fixed top-0 left-0 right-0 flex h-14 shadow-lg shadow-[#040306]/50 bg-[#03001417] backdrop-blur-md items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 z-20">
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="shrink-0">
@@ -27,7 +29,7 @@ const TopBar = () => {
         </SheetTrigger>
         <SheetContent side="left" className="flex flex-col">
           <nav className="grid gap-2 text-lg font-medium">
-          { /* Put Side Bar Elements here*/ }
+             <FileTree onOpenFile={onOpenFile} />
           </nav>
         </SheetContent>
       </Sheet>

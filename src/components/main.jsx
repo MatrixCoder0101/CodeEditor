@@ -1,8 +1,8 @@
-"use client";
-import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
+'use client';
+import { useState, useEffect } from 'react';
+import { useTheme } from 'next-themes';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/components/ui/use-toast';
 import {
   DropdownMenu,
   DropdownMenuSeparator,
@@ -16,10 +16,10 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import Editor from "@/components/Editor";
-import TopBar from "@/components/TopBar";
+} from '@/components/ui/dropdown-menu';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import Editor from '@/components/Editor';
+import TopBar from '@/components/TopBar';
 
 export default function Main() {
   const { setTheme } = useTheme();
@@ -41,10 +41,37 @@ export default function Main() {
     setCurrentStep(newHistory.length);
   };
 
-  const Save = () => {
-    toast({
-      description: "Successfully Saved.",
-    });
+  const handleOpenFile = async (filePath) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/file?filePath=${filePath}`);
+      const data = await response.json();
+      setEditorValue(data.content);
+      const newHistory = history.slice(0, currentStep + 1);
+      setHistory([...newHistory, data.content]);
+      setCurrentStep(newHistory.length);
+    } catch (error) {
+      console.error('Error fetching file content:', error);
+    }
+  };
+
+  const Save = async () => {
+    try {
+      await fetch('http://localhost:3000/api/file', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ filePath: 'currentFilePath', content: editorValue }),
+      });
+      toast({
+        description: 'Successfully Saved.',
+      });
+    } catch (error) {
+      console.error('Error saving file content:', error);
+      toast({
+        description: 'Error saving file.',
+      });
+    }
   };
 
   const Undo = () => {
@@ -61,11 +88,8 @@ export default function Main() {
 
   return (
     <div className="h-full w-full flex flex-col">
-      <TopBar />
-        <Editor
-          value={editorValue}
-          onChange={handleEditorChange}
-        />
+      <TopBar onOpenFile={handleOpenFile} />
+      <Editor value={editorValue} onChange={handleEditorChange} />
     </div>
   );
 }
