@@ -43,7 +43,7 @@ export default function Main() {
 
   const handleOpenFile = async (filePath) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/file?filePath=${filePath}`);
+      const response = await fetch(`/api/file?filePath=${filePath}`);
       const data = await response.json();
       setEditorValue(data.content);
       const newHistory = history.slice(0, currentStep + 1);
@@ -56,7 +56,7 @@ export default function Main() {
 
   const Save = async () => {
     try {
-      await fetch('http://localhost:3000/api/file', {
+      await fetch('/api/file', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
