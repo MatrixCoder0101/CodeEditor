@@ -77,7 +77,7 @@ const Editor = ({ value, onChange, editorTheme }) => {
 									prefix,
 									suffix,
 									language: "javascript",
-									model: "hf/meta-llama/meta-llama-3-8b-instruct"
+									model: "gpt-3.5-turbo"
 								})
 							});
 							const { prediction } = await res.json();
