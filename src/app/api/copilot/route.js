@@ -14,7 +14,7 @@ async function completion(prefix, suffix, model, language) {
       })
     });
    const data = await response.json()
-   return data?.result?.response;
+   return data?.content;
 }
 
 export async function POST(request) {
