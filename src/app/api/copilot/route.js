@@ -1,5 +1,5 @@
 async function completion(prefix, suffix, model, language) {
-   const response = await fetch('https://matrixcoder.netlify.app/api/ai', {
+   const response = await fetch('https://matrixcoder.tech/api/ai', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
