@@ -68,6 +68,8 @@ const Editor = ({ value, onChange, editorTheme }) => {
 					javascript({ jsx: true }),
 					inlineCopilot(
 						async (prefix, suffix) => {
+     console.log('prefix', prefix);
+     console.log('suffix', suffix);
 							const res = await fetch("/api/copilot", {
 								method: "POST",
 								headers: {
